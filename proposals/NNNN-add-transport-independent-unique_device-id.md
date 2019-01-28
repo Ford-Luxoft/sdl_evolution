@@ -7,29 +7,30 @@
 
 ## Introduction
 
-Adding of new unique device id independent from transport type to `RegisterAppInterface` request.
-This `device_id` must be the same for all types of transports of one physical device
+This proposal is to add a new unique device id parameter independent from transport type to `RegisterAppInterface` request.  
+This `device_id` must be the same for all transports types of one physical device.
 
 ## Motivation
-Currently, when application registers with SDL - SDL receives all app related data in `RegisterAppInterface` request and generates unique device id based on transport used by device.
+Currently, when application registers with SDL - SDL receives all app related data in `RegisterAppInterface` request and generates unique device id based on transport used by device.  
 As SDL supports the following transport types: Bluetooth, USB-AOA, and TCP (WiFi) - SDL generates different `unique` device ids for each transport inspite of it is one physical device.
-E.g.
+
 - For Bluetooth: device id will be based on bluetooth MAC-ADDRESS
 - For WiFi: device id will be based on IP address
 - For USB: it will be based on internal usb serial number of device.
 
-Therefore when new application tries to register - it is impossible for SDL to distinguish if this new application tries to register from different physical device
+Therefore when new application tries to register - it is impossible for SDL to distinguish  
+if this new application tries to register from different physical device  
 or just from differrent transport from the same device.
 
-Having of unique device id independent from transport type (the same for all transports of one physical device)
+Having unique device id independent from transport type (the same for all transports of one physical device)
 will give the following benefits:
-- It will allow SDL clearly and definitely determine if app tries to register within the same device
+- It will allow SDL clearly and definitely determine if app tries to register within the same device.
 - SDL can apply application policies more effectively using device permissions as well.
-- SDL can allow multiple application registration from different devices
+- SDL can allow multiple application registration from different devices.
 
 
 ## Proposed solution
-The solution is to add a new parameter `device_id` to `RegisterAppInterface` request as follows:
+The solution is to add a new parameter `device_id` to `RegisterAppInterface` request.
 Mobile API update:
 ```xml
 <function name="RegisterAppInterface" functionID="RegisterAppInterfaceID" messagetype="request" since="1.0">
@@ -45,8 +46,7 @@ Mobile API update:
 
 ## Potential downsides
 
-This change will force mobile app manufacturers to update their applications
-
+This change will require mobile app manufacturers to update their applications.
 
 ## Impact on existing code
 
